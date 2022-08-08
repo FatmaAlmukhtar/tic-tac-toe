@@ -33,8 +33,8 @@ const gameBoard = (() => {
 })();
 
 const gameController = (() => {
-    const player_1 = player('player 1', 'x');
-    const player_2 = player('player 2', 'o');
+    const player_1 = player('player 1', 'cross');
+    const player_2 = player('player 2', 'circle');
     const squares = document.querySelectorAll('.square');
     let currentPlayer;
     let counter = 0
@@ -42,13 +42,24 @@ const gameController = (() => {
     const resultDiv = document.querySelector('.result');
     const resultMessage = document.querySelector('.message');
     const restartButton = document.querySelector('.restartButton');
+    const boardDiv = document.querySelector('.gameBoard');
 
     const setCurrentPlayer = (counter) => {
-        return counter % 2 === 0 ? currentPlayer = player_1 : currentPlayer = player_2;
+        if (counter % 2 === 0) {
+            boardDiv.classList.remove('circleTurn');
+            boardDiv.classList.add('crossTurn');
+            return currentPlayer = player_1;
+        }
+        else {
+            boardDiv.classList.remove('crossTurn');
+            boardDiv.classList.add('circleTurn');
+            return currentPlayer = player_2;
+        }
+        //return counter % 2 === 0 ? currentPlayer = player_1 : currentPlayer = player_2;
     }
     const checkGameEnd = () => {
         return gameBoard.board.every(element => {
-            return element === 'x' || element === 'o';
+            return element === 'cross' || element === 'circle';
         })
         
     }
@@ -67,7 +78,9 @@ const gameController = (() => {
         gameBoard.resetBoard();
         counter = 0;
         squares.forEach(square => {
-                square.innerHTML = '';
+                square.classList.remove('cross', 'circle');
+                boardDiv.classList.remove('circleTurn');
+                boardDiv.classList.add('crossTurn');
                 square.removeEventListener('click', play);
                 square.addEventListener('click', play, {once: true});
         });
@@ -76,11 +89,11 @@ const gameController = (() => {
         
         if(checkWin()) {
             resultDiv.classList.add('display');
-            resultMessage.innerText = `${currentPlayer.sign}'s Wins!`;
+            resultMessage.innerText = `${currentPlayer.sign.toUpperCase()} Wins!`;
             restartButton.addEventListener('click', resetGame);
         }
         else if (checkGameEnd()) {
-            if(checkWin()) resultMessage.innerText = `${currentPlayer.sign}'s Wins!`;
+            if(checkWin()) resultMessage.innerText = `${currentPlayer.sign} Wins!`;
                 
             else resultMessage.innerText = 'Draw!';
        
@@ -92,7 +105,7 @@ const gameController = (() => {
     const play = (e) => {
         gameBoard.markSquare(e.target.dataset.index, setCurrentPlayer(counter).sign);
         counter++;
-        e.target.innerHTML = currentPlayer.sign;
+        e.target.classList.add(currentPlayer.sign);
         checkStatus();
     }
     squares.forEach(square => {

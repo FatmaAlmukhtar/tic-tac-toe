@@ -204,6 +204,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--primary-color);
 }
 img {
     width: 18px;

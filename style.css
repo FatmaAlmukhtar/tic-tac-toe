@@ -1,6 +1,13 @@
 :root {
     --square-size: 120px;
-    --sign-size: calc(var(--square-size) * 0.9)
+    --sign-size: calc(var(--square-size) * 0.9);
+
+    --cross-primary-color: #ffd700;
+    --cross-secondary-color: #fcf0ac;
+    --circle-primary-color: #9951ff;
+    --circle-secondary-color: #d1b0ff;
+    --primary-color: #faf7ff;
+    --secondary-color: #6900ff;
 }
 body {
     margin: 0;
@@ -8,8 +15,58 @@ body {
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    box-sizing: content-box;
 }
+.turns {
+    height: 20%;
+    background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid;
+}
+.header {
+    font-size: 42px;
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+.turns > div {
+    display: flex;
+    gap: 30px;
+}
+.first, 
+.second {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-top: 8px;
+    color: var(--primary-color);
+    font-size: 18px;
+    text-align: center;
+}
+.first.active,
+.second.active {
+    box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+.first.active {
+    background: var(--cross-primary-color);
+}
+.second.active {
+    background: var(--circle-primary-color);
+}
+.first {
+    background-color: var(--cross-secondary-color);
+}
+.second {
+    background-color: var(--circle-secondary-color);
+}
+
+/* GAMEBOARD SECTION STYLES */
+
 .gameBoard {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -18,10 +75,10 @@ body {
     flex: 1;
     justify-items: center;
     align-items: center;
-    background-color: #faf7ff;
+    background-color: var(--primary-color);
 }
 .square {
-    border: 1px solid #6900ff;
+    border: 1px solid var(--secondary-color);
     width: var(--square-size);
     height: var(--square-size);
     cursor: pointer;
@@ -46,33 +103,16 @@ body {
 .square:last-child {
     border-bottom: none;
 }
-.result {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0, 0.6);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-.display {
-    display: flex;
-}
-/* cross marker styles */
+
+/* CROSS MARKER STYLES */
 
 .cross::before,
 .cross::after {
-    background-color: #ffd700;
+    background-color: var(--cross-primary-color);
 }
 .gameBoard.crossTurn .square:not(.cross):not(.circle):hover::before,
 .gameBoard.crossTurn .square:not(.cross):not(.circle):hover::after {
-    background-color: #fcf0ac;
+    background-color: var(--cross-secondary-color);
 }
 .cross::before,
 .cross::after,
@@ -92,12 +132,13 @@ body {
     transform: rotate(45deg);
 }
 
-/* circle marker styles */
+/* CIRCLE MARKER STYLES */
+
 .circle::before {
-    background-color: #9951ff;
+    background-color: var(--circle-primary-color);
 }
 .gameBoard.circleTurn .square:not(.cross):not(.circle):hover::before {
-    background-color: #d1b0ff;
+    background-color: var(--circle-secondary-color);
 }
 .circle::before,
 .circle::after,
@@ -114,15 +155,34 @@ body {
 }
 .circle::after,
 .gameBoard.circleTurn .square:not(.cross):not(.circle):hover::after {
-    background-color: #faf7ff;;
+    background-color: var(--primary-color);
     height: calc(var(--sign-size) * 0.7);
     width: calc(var(--sign-size) * 0.7);
 }
-
 .cross, .circle {
     cursor: not-allowed;
 }
 
+/* RESULT SECTION STYLES */
+
+.result {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.6);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.display {
+    display: flex;
+}
 .message {
     color: #faf7ff;
     font-size: 48px;
@@ -143,6 +203,7 @@ body {
 }
 
 /* FOOTER SECTION STYLES */
+
 footer {
     color: black;
     display: flex;
@@ -157,53 +218,4 @@ img {
 }
 footer > * {
     margin: 0;
-}
-
-.turns {
-    height: 20%;
-    background-color: #6900ff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    border-bottom: 2px solid;
-}
-.turns > div {
-    display: flex;
-    gap: 30px;
-}
-.first, 
-.second {
-    width: 130px;
-    height: 40px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    padding-top: 8px;
-    color: #faf7ff;
-    font-size: 18px;
-    text-align: center;
-}
-.first.active,
-.second.active {
-    box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.4);
-    font-weight: bold;
-}
-.first.active {
-    background: #ffd700;
-}
-.second.active {
-    background: #9951ff;
-}
-.first {
-    background-color: #fcf0ac;
-}
-.second {
-    background-color: #d1b0ff;
-}
-.header {
-    font-size: 42px;
-    color: #faf7ff;
-    font-weight: bold;
-    letter-spacing: 3px;
 }

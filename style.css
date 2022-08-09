@@ -4,11 +4,11 @@
 }
 body {
     margin: 0;
-    background-color: #faf7ff;
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    box-sizing: content-box;
 }
 .gameBoard {
     display: grid;
@@ -18,6 +18,7 @@ body {
     flex: 1;
     justify-items: center;
     align-items: center;
+    background-color: #faf7ff;
 }
 .square {
     border: 1px solid #6900ff;
@@ -126,6 +127,7 @@ body {
     color: #faf7ff;
     font-size: 48px;
     letter-spacing: 3px;
+    margin-left: 10px;
 }
 .restartButton {
     width: 135px;
@@ -155,4 +157,53 @@ img {
 }
 footer > * {
     margin: 0;
+}
+
+.turns {
+    height: 20%;
+    background-color: #6900ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid;
+}
+.turns > div {
+    display: flex;
+    gap: 30px;
+}
+.first, 
+.second {
+    width: 130px;
+    height: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-top: 8px;
+    color: #faf7ff;
+    font-size: 18px;
+    text-align: center;
+}
+.first.active,
+.second.active {
+    box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.4);
+    font-weight: bold;
+}
+.first.active {
+    background: #ffd700;
+}
+.second.active {
+    background: #9951ff;
+}
+.first {
+    background-color: #fcf0ac;
+}
+.second {
+    background-color: #d1b0ff;
+}
+.header {
+    font-size: 42px;
+    color: #faf7ff;
+    font-weight: bold;
+    letter-spacing: 3px;
 }

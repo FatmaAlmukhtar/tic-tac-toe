@@ -44,15 +44,22 @@ const gameController = (() => {
     const restartButton = document.querySelector('.restartButton');
     const boardDiv = document.querySelector('.gameBoard');
 
+    const firstPlayer = document.querySelector('.first');
+    const secondPlayer = document.querySelector('.second');
+
     const setCurrentPlayer = (counter) => {
         if (counter % 2 === 0) {
             boardDiv.classList.remove('circleTurn');
             boardDiv.classList.add('crossTurn');
+            firstPlayer.classList.add('active');
+            secondPlayer.classList.remove('active');
             return currentPlayer = player_1;
         }
         else {
             boardDiv.classList.remove('crossTurn');
             boardDiv.classList.add('circleTurn');
+            secondPlayer.classList.add('active');
+            firstPlayer.classList.remove('active');
             return currentPlayer = player_2;
         }
         //return counter % 2 === 0 ? currentPlayer = player_1 : currentPlayer = player_2;
@@ -81,6 +88,8 @@ const gameController = (() => {
                 square.classList.remove('cross', 'circle');
                 boardDiv.classList.remove('circleTurn');
                 boardDiv.classList.add('crossTurn');
+                secondPlayer.classList.remove('active');
+                firstPlayer.classList.add('active');
                 square.removeEventListener('click', play);
                 square.addEventListener('click', play, {once: true});
         });
